@@ -1,13 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginEnd="10dp"
+    android:layout_marginTop="10dp"
+    >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:id="@+id/img_user"
+        android:src="@drawable/anh_bia_1" />
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
+        android:id="@+id/t_user"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:padding="16dp" />
-</LinearLayout>
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:text="Name User 1"
+        android:layout_toEndOf="@id/img_user"
+        android:layout_centerVertical="true"
+        android:layout_margin="10dp"/>
+    <TextView
+        android:id="@+id/d_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="12sp"
+        android:text="Address 1"
+        android:layout_toEndOf="@id/img_user"
+        android:layout_alignTop="@id/img_user"
+        android:layout_margin="10dp"/>
+
+
+</RelativeLayout>
+
+
+
+
+</androidx.cardview.widget.CardView>
