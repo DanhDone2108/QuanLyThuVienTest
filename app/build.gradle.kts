@@ -51,6 +51,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.appcompat)
     val room_version = "2.6.1"
 
     //Recyclerview
@@ -62,6 +63,11 @@ dependencies {
     //CircleImageView
     implementation ("de.hdodenhof:circleimageview:3.1.0")
 
+    // Compose dependencies
+    val compose_version = "1.3.0"
+    implementation("androidx.compose.ui:ui:$compose_version")
+    implementation("androidx.compose.material3:material3:1.1.0")
+    debugImplementation("androidx.compose.ui:ui-tooling:$compose_version")
 
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")

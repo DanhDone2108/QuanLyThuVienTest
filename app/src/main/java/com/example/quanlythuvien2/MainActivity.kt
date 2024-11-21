@@ -1,36 +1,15 @@
 package com.example.quanlythuvien2
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Button
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.util.newStringBuilder
-import com.example.quanlythuvien2.Data.AppDatabase
-import com.example.quanlythuvien2.Data.UserDao
-import com.example.quanlythuvien2.ui.theme.QuanLyThuVien2Theme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.newSingleThreadContext
 
 class MainActivity : ComponentActivity() {
 
@@ -49,7 +28,12 @@ class MainActivity : ComponentActivity() {
         rcv_user.layoutManager = linearLayoutManager
         getlistuser()
         rcv_user.adapter = adapterUser
+
+        findViewById<Button>(R.id.btn_add_user)?.setOnClickListener {
+            addUser() // Gọi hàm để thêm người dùng mới
+        }
     }
+
 
 
     private fun getlistuser() {
@@ -61,35 +45,38 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun fetchUsersFromDatabase(): List<User> {
-        val users = mutableListOf<User>()
-        val images = listOf(
-            R.drawable.anh_bia_1,
-            R.drawable.anh_bia_2,
-            R.drawable.anh_bia_3,
-            R.drawable.anh_bia_4
-        )
-
-        val names = listOf(
-            "Name User 1",
-            "Name User 2",
-            "Name User 3",
-            "Name User 4"
-        )
-
-        val addresses = listOf(
-            "Address 1",
-            "Address 2",
-            "Address 3",
-            "Address 4"
-        )
-
-        // Lặp qua danh sách hình ảnh và tên để thêm vào danh sách người dùng
-        for (i in images.indices) {
-            users.add(User(images[i], names[i % names.size], addresses[i % addresses.size]))
+    fun ClickItem(user: User) {
+        // Mở trang thông tin chi tiết của người dùng
+        val intent = Intent(this, UserDetailActivity::class.java).apply {
+            putExtra("USER_NAME", user.name)
+            putExtra("USER_ADDRESS", user.address)
+            putExtra("USER_PHONE", user.Phone)
+            putExtra("USER_AGE", user.age)
+            putExtra("USER_LASTNAME", user.lastname)
+            putExtra("USER_IMAGE", user.resourceid)
         }
+        startActivity(intent)
+    }
 
-        return users
+    private fun addUser() {
+        // Tạo một người dùng mới và thêm vào danh sách
+        val newUser = User(R.drawable.anh_bia_1, "New User", "New Address", "New Lastname", "0000000000", 20)
+
+        // Cập nhật danh sách người dùng trong adapter
+        val updatedList = adapterUser.getCurrentUsers().toMutableList()
+        updatedList.add(newUser)
+
+        // Cập nhật adapter với danh sách mới
+        adapterUser.setDataUser(updatedList)
+    }
+
+    private fun fetchUsersFromDatabase(): List<User> {
+        return listOf(
+            User(R.drawable.anh_bia_1, "Name User: 1", "Address 1", "Last Name: 1", "1234567890", 25),
+            User(R.drawable.anh_bia_2, "Name User: 2", "Address 2", "Last Name: 2", "0987654321", 30),
+            User(R.drawable.anh_bia_3, "Name User: 3", "Address 3", "Last Name: 3", "1122334455", 22),
+            User(R.drawable.anh_bia_4, "Name User: 4", "Address 4", "Last Name: 4", "2233445566", 28)
+        )
     }
 }
 

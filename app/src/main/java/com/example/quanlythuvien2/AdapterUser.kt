@@ -1,7 +1,5 @@
 package com.example.quanlythuvien2
 
-import android.content.Context
-import android.location.Address
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,18 +7,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class AdapterUser(private val mContext: Context) : RecyclerView.Adapter<AdapterUser.UserViewHolder>() {
+class AdapterUser(private val mContext: MainActivity) : RecyclerView.Adapter<AdapterUser.UserViewHolder>() {
 
     private var mListUser: List<User> = listOf()
-    private var mListAddress: List<Address> = listOf()
 
     fun setDataUser(list: List<User>) {
         this.mListUser = list
         notifyDataSetChanged()
-    }
-
-    fun setDataAddress(list: List<Address>) {
-        // Nếu bạn cần xử lý địa chỉ, hãy thêm logic ở đây.
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
@@ -30,16 +23,26 @@ class AdapterUser(private val mContext: Context) : RecyclerView.Adapter<AdapterU
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val user = mListUser[position]
-        if (user != null) {
-            holder.imgUser.setImageResource(user.resourceid)
-            holder.tUser.text = user.name
-            holder.dAddress.text = user.address
+
+        holder.imgUser.setImageResource(user.resourceid)
+        holder.tUser.text = user.name
+        holder.dAddress.text = user.address
+
+        // Thiết lập sự kiện nhấn vào mục
+        holder.itemView.setOnClickListener {
+            // Gọi ClickItem từ MainActivity
+            mContext.ClickItem(user)
         }
     }
 
     override fun getItemCount(): Int {
         return mListUser.size
     }
+
+    fun getCurrentUsers(): List<User> {
+        return mListUser // Trả về danh sách người dùng hiện tại
+    }
+
 
     inner class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgUser: ImageView = itemView.findViewById(R.id.img_user)

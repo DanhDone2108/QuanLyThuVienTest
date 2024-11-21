@@ -13,21 +13,7 @@ import androidx.room.RoomDatabase
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
 
-    companion object{
-        private var INSTANCE: AppDatabase? = null
 
-        fun getDatabase(context: Context): AppDatabase {
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    AppDatabase::class.java,
-                    "database-name"
-                ).build()
-                INSTANCE = instance
-                instance
-            }
-        }
-    }
 }
 
 @Dao
@@ -38,9 +24,11 @@ interface UserDao {
     @Query("SELECT * FROM user1 WHERE uid IN (:userIds)")
     fun loadAllByIds(userIds: IntArray): List<User1>
 
-    @Query("SELECT * FROM user1 WHERE first_name LIKE :first AND " +
-            "last_name LIKE :last LIMIT 1")
+    @Query("SELECT * FROM user1 WHERE first_name LIKE :first AND last_name LIKE :last LIMIT 1")
     fun findByName(first: String, last: String): User1
+
+    @Query("SELECT * FROM user1 WHERE Address_User = :address")
+    fun findByAddress(address: String): List<User1>
 
     @Insert
     fun insertAll(vararg users: User1)
