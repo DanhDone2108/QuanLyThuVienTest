@@ -7,16 +7,15 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 
 
-
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity(), OnUserClickListener {
 
     private lateinit var rcv_user: RecyclerView
     private lateinit var adapterUser: AdapterUser
@@ -27,7 +26,9 @@ class MainActivity : ComponentActivity() {
         setContentView(R.layout.activity_main)
 
         rcv_user = findViewById(R.id.rcv_user)
-        adapterUser = AdapterUser(this)
+        adapterUser = AdapterUser()
+        adapterUser.setOnUserClickListener(this)
+
 
         linearLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rcv_user.layoutManager = linearLayoutManager
@@ -51,7 +52,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    fun ClickItem(user: User) {
+    override fun ClickItem(user: User) {
         // Mở trang thông tin chi tiết của người dùng
         val intent = Intent(this, UserDetailActivity::class.java).apply {
             putExtra("USER_NAME", user.name)

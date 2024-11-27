@@ -7,9 +7,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class AdapterUser(private val mContext: MainActivity) : RecyclerView.Adapter<AdapterUser.UserViewHolder>() {
+
+class AdapterUser : RecyclerView.Adapter<AdapterUser.UserViewHolder>() {
 
     private var mListUser: MutableList<User> = mutableListOf()
+    private var listener: OnUserClickListener? = null // Khai báo listener
+
+    // Phương thức để thiết lập listener
+    fun setOnUserClickListener(listener: OnUserClickListener) {
+        this.listener = listener
+    }
 
     fun setDataUser(list: List<User>) {
         this.mListUser.clear()
@@ -31,8 +38,7 @@ class AdapterUser(private val mContext: MainActivity) : RecyclerView.Adapter<Ada
 
         // Thiết lập sự kiện nhấn vào mục
         holder.itemView.setOnClickListener {
-            // Gọi ClickItem từ MainActivity
-            mContext.ClickItem(user)
+            listener?.ClickItem(user) // Gọi phương thức từ listener
         }
     }
 
@@ -43,6 +49,7 @@ class AdapterUser(private val mContext: MainActivity) : RecyclerView.Adapter<Ada
     fun getCurrentUsers(): List<User> {
         return mListUser // Trả về danh sách người dùng hiện tại
     }
+
     fun removeUserAt(position: Int) {
         if (position >= 0 && position < mListUser.size) {
             mListUser.removeAt(position)
@@ -55,4 +62,8 @@ class AdapterUser(private val mContext: MainActivity) : RecyclerView.Adapter<Ada
         val tUser: TextView = itemView.findViewById(R.id.t_user)
         val dAddress: TextView = itemView.findViewById(R.id.d_address)
     }
+}
+
+interface OnUserClickListener {
+    fun ClickItem(user: User)
 }
