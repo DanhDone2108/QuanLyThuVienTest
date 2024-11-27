@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/et_user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tên người dùng"
+        android:minHeight="48dp"
+        android:inputType="text"
+        android:padding="10dp"/>
+
+    <EditText
+        android:id="@+id/et_user_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Địa chỉ"
+        android:minHeight="48dp"
+        android:padding="10dp"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/et_user_lastname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Họ"
+        android:minHeight="48dp"
+        android:padding="10dp"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/et_user_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Số điện thoại"
+        android:minHeight="48dp"
+        android:padding="10dp"
+        android:inputType="phone"/>
+
+    <EditText
+        android:id="@+id/et_user_age"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tuổi"
+        android:minHeight="48dp"
+        android:inputType="number"/>
+</LinearLayout>

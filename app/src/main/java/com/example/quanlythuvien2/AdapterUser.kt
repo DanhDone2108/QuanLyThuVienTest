@@ -9,10 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 
 class AdapterUser(private val mContext: MainActivity) : RecyclerView.Adapter<AdapterUser.UserViewHolder>() {
 
-    private var mListUser: List<User> = listOf()
+    private var mListUser: MutableList<User> = mutableListOf()
 
     fun setDataUser(list: List<User>) {
-        this.mListUser = list
+        this.mListUser.clear()
+        this.mListUser.addAll(list)
         notifyDataSetChanged()
     }
 
@@ -42,7 +43,12 @@ class AdapterUser(private val mContext: MainActivity) : RecyclerView.Adapter<Ada
     fun getCurrentUsers(): List<User> {
         return mListUser // Trả về danh sách người dùng hiện tại
     }
-
+    fun removeUserAt(position: Int) {
+        if (position >= 0 && position < mListUser.size) {
+            mListUser.removeAt(position)
+            notifyItemRemoved(position)
+        }
+    }
 
     inner class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgUser: ImageView = itemView.findViewById(R.id.img_user)
