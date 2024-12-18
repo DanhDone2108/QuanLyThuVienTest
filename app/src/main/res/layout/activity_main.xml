@@ -4,23 +4,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- RecyclerView -->
+
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:title="Ung Dung Quan Ly Thu Vien"
-        android:titleTextColor="@android:color/white" />
+        android:background="?attr/colorPrimary" />
 
-    <!-- RecyclerView -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_user"
+    <!-- FrameLayout để chứa Fragment -->
+    <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="10dp" />
+        android:layout_below="@id/toolbar" >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_user"
+            android:layout_width="401dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp" />
+    </FrameLayout>
 
     <!-- Floating Action Button -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton

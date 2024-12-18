@@ -54,6 +54,8 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     val room_version = "2.6.1"
+    val fragment_version = "1.8.5"
+    implementation("androidx.fragment:fragment-ktx:$fragment_version")
     implementation ("com.google.android.material:material:1.11.0")
     //Recyclerview
     implementation ("androidx.recyclerview:recyclerview:1.2.1")

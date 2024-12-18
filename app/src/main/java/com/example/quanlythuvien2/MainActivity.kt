@@ -2,7 +2,6 @@ package com.example.quanlythuvien2
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -26,6 +25,11 @@ class MainActivity : AppCompatActivity(), OnUserClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+
+
         rcv_user = findViewById(R.id.rcv_user)
         adapterUser = AdapterUser()
         adapterUser.setOnUserClickListener(this)
@@ -37,10 +41,17 @@ class MainActivity : AppCompatActivity(), OnUserClickListener {
         val itemTouchHelper = ItemTouchHelper(SwipeToDeleteCallback(adapterUser))
         itemTouchHelper.attachToRecyclerView(rcv_user)
 
+
+
         // FloatingActionButton - Add User
         findViewById<FloatingActionButton>(R.id.btn_add_user).setOnClickListener {
             showAddUserDialog() // Gọi hàm để thêm người dùng mới
         }
+
+    }
+
+    fun updateToolbarTitle(title: String) {
+        supportActionBar?.title = title
     }
 
     private fun getlistuser() {
@@ -53,17 +64,25 @@ class MainActivity : AppCompatActivity(), OnUserClickListener {
     }
 
     override fun ClickItem(user: User) {
-        // Mở trang thông tin chi tiết của người dùng
-        val intent = Intent(this, UserDetailActivity::class.java).apply {
-            putExtra("USER_NAME", user.name)
-            putExtra("USER_ADDRESS", user.address)
-            putExtra("USER_PHONE", user.Phone)
-            putExtra("USER_AGE", user.age)
-            putExtra("USER_LASTNAME", user.lastname)
-            putExtra("USER_IMAGE", user.resourceid)
+        // Mở UserDetailFragment thay vì UserDetailActivity
+        val fragment = UserDetailFragment()
+        val bundle = Bundle().apply {
+            putString("USER_NAME", user.name)
+            putString("USER_ADDRESS", user.address)
+            putString("USER_PHONE", user.Phone)
+            putInt("USER_AGE", user.age)
+            putString("USER_LASTNAME", user.lastname)
+            putInt("USER_IMAGE", user.resourceid)
         }
-        startActivity(intent)
+        fragment.arguments = bundle
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment) // Thay thế container với UserDetailFragment
+            .addToBackStack(null) // Để có thể quay lại Fragment trước đó
+            .commit()
     }
+
+
 
     class SwipeToDeleteCallback(private val adapter: AdapterUser) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
         override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
