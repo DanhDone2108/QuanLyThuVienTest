@@ -13,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class MainActivity : AppCompatActivity(), OnUserClickListener {
@@ -28,8 +29,6 @@ class MainActivity : AppCompatActivity(), OnUserClickListener {
         rcv_user = findViewById(R.id.rcv_user)
         adapterUser = AdapterUser()
         adapterUser.setOnUserClickListener(this)
-
-
         linearLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rcv_user.layoutManager = linearLayoutManager
         getlistuser()
@@ -38,7 +37,8 @@ class MainActivity : AppCompatActivity(), OnUserClickListener {
         val itemTouchHelper = ItemTouchHelper(SwipeToDeleteCallback(adapterUser))
         itemTouchHelper.attachToRecyclerView(rcv_user)
 
-        findViewById<Button>(R.id.btn_add_user)?.setOnClickListener {
+        // FloatingActionButton - Add User
+        findViewById<FloatingActionButton>(R.id.btn_add_user).setOnClickListener {
             showAddUserDialog() // Gọi hàm để thêm người dùng mới
         }
     }
@@ -81,7 +81,6 @@ class MainActivity : AppCompatActivity(), OnUserClickListener {
 
     private fun showAddUserDialog() {
         val dialogView = layoutInflater.inflate(R.layout.dialog_add_user, null)
-
         val etUserName = dialogView.findViewById<EditText>(R.id.et_user_name)
         val etUserAddress = dialogView.findViewById<EditText>(R.id.et_user_address)
         val etUserLastname = dialogView.findViewById<EditText>(R.id.et_user_lastname)

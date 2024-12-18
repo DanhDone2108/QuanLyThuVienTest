@@ -52,8 +52,9 @@ android {
 
 dependencies {
     implementation(libs.androidx.appcompat)
+    implementation(libs.material)
     val room_version = "2.6.1"
-
+    implementation ("com.google.android.material:material:1.11.0")
     //Recyclerview
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
 
