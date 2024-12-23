@@ -1,6 +1,4 @@
-package com.example.quanlythuvien2
-
-import android.location.Address
+package com.example.quanlythuvien2.Model
 
 data class User(
     var resourceid: Int,

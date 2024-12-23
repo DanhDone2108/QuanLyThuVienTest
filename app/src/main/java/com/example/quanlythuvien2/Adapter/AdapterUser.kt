@@ -1,4 +1,4 @@
-package com.example.quanlythuvien2
+package com.example.quanlythuvien2.Adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.quanlythuvien2.R
+import com.example.quanlythuvien2.Model.User
 
 
 class AdapterUser : RecyclerView.Adapter<AdapterUser.UserViewHolder>() {

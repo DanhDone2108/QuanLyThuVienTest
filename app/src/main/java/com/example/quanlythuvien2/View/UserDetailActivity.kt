@@ -1,10 +1,11 @@
-package com.example.quanlythuvien2
+package com.example.quanlythuvien2.View
 
 
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.ComponentActivity
+import com.example.quanlythuvien2.R
 
 class UserDetailActivity: ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
