@@ -14,7 +14,6 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
@@ -96,6 +95,10 @@ dependencies {
 
     // optional - Paging 3 Integration
     implementation("androidx.room:room-paging:$room_version")
+
+    implementation("com.google.android.material:material:1.9.0")// Kiểm tra phiên bản mới nhất
+    implementation ("androidx.appcompat:appcompat:1.3.1") // Thêm thư viện AppCompat nếu chưa có
+    // Các thư viện khác của bạn...
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

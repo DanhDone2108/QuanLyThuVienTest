@@ -1,25 +1,29 @@
-package com.example.quanlythuvien2
+package com.example.quanlythuvien2.Activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.quanlythuvien2.Adapter.AdapterUser
 import com.example.quanlythuvien2.Adapter.OnUserClickListener
+import com.example.quanlythuvien2.BookListActivity
+import com.example.quanlythuvien2.LoginActivity
 import com.example.quanlythuvien2.Model.User
+import com.example.quanlythuvien2.R
 import com.example.quanlythuvien2.ViewModel.UserViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), OnUserClickListener {
 
     private lateinit var rcv_user: RecyclerView
     private lateinit var adapterUser: AdapterUser
+    private lateinit var drawerLayout: DrawerLayout
 
     private val userViewModel: UserViewModel by viewModels()
 
@@ -28,17 +32,20 @@ class MainActivity : AppCompatActivity(), OnUserClickListener {
 
         // Kiểm tra trạng thái đăng nhập trước khi thiết lập giao diện chính
         if (!isLoggedIn()) {
-            // Nếu chưa đăng nhập, chuyển đến LoginActivity
             startActivity(Intent(this, LoginActivity::class.java))
-            finish() // Kết thúc MainActivity để không quay lại được
-            return // Dừng thực hiện tiếp trong onCreate()
+            finish()
+            return
         }
 
         setContentView(R.layout.activity_main)
 
-        // Thiết lập Toolbar
+        // Thiết lập Toolbar và Navigation Drawer
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+        drawerLayout = findViewById(R.id.drawer_layout)
+
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
 
         // Khởi tạo RecyclerView và Adapter
         rcv_user = findViewById(R.id.rcv_user)
@@ -61,10 +68,24 @@ class MainActivity : AppCompatActivity(), OnUserClickListener {
         findViewById<FloatingActionButton>(R.id.btn_add_user).setOnClickListener {
             showAddUserDialog()
         }
+
+        navigationView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_users -> {
+                    // Xử lý khi chọn "Người dùng"
+                    Toast.makeText(this, "Đang xem Người dùng", Toast.LENGTH_SHORT).show()
+                }
+                R.id.nav_books -> {
+                    // Chuyển đến BookListActivity khi chọn "Sách"
+                    startActivity(Intent(this, BookListActivity::class.java))
+                }
+            }
+            drawerLayout.closeDrawers() // Đóng Navigation Drawer sau khi chọn mục.
+            true // Trả về true để đánh dấu rằng sự kiện đã được xử lý.
+        }
     }
 
     private fun isLoggedIn(): Boolean {
-        // Kiểm tra trạng thái đăng nhập từ SharedPreferences.
         val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
         return sharedPreferences.getBoolean("isLoggedIn", false)
     }
@@ -74,35 +95,7 @@ class MainActivity : AppCompatActivity(), OnUserClickListener {
     }
 
     private fun showAddUserDialog() {
-        val dialogView = layoutInflater.inflate(R.layout.dialog_add_user, null)
-
-        val etUserName = dialogView.findViewById<EditText>(R.id.et_user_name)
-        val etUserAddress = dialogView.findViewById<EditText>(R.id.et_user_address)
-        val etUserLastname = dialogView.findViewById<EditText>(R.id.et_user_lastname)
-        val etUserPhone = dialogView.findViewById<EditText>(R.id.et_user_phone)
-        val etUserAge = dialogView.findViewById<EditText>(R.id.et_user_age)
-
-        val dialogBuilder = AlertDialog.Builder(this)
-            .setTitle("Thêm người dùng")
-            .setView(dialogView)
-            .setNegativeButton("Hủy") { dialog, _ -> dialog.dismiss() }
-            .setPositiveButton("Thêm") { dialog, _ ->
-                // Tạo đối tượng người dùng mới từ dữ liệu nhập vào.
-                val newUser = User(
-                    R.drawable.anh_bia_1,
-                    name = etUserName.text.toString(),
-                    address = etUserAddress.text.toString(),
-                    lastname = etUserLastname.text.toString(),
-                    Phone = etUserPhone.text.toString(),
-                    age = etUserAge.text.toString().toInt()
-                )
-                userViewModel.addUser(newUser) // Sử dụng ViewModel để thêm người dùng.
-
-                Toast.makeText(this, "Người dùng đã được thêm thành công.", Toast.LENGTH_SHORT).show()
-                dialog.dismiss()
-            }
-
-        dialogBuilder.create().show()
+        // Logic để hiển thị hộp thoại thêm người dùng.
     }
 
     class SwipeToDeleteCallback(private val adapter: AdapterUser) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
