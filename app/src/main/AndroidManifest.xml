@@ -30,8 +30,11 @@
             android:name=".View.UserDetailActivity"
             android:exported="true" /> <!-- Khai báo UserDetailActivity -->
 
+        <activity android:name=".BookListActivity"
+            android:exported="true"/>
         <activity
-            android:name=".BookListActivity" /> <!-- Khai báo BookListActivity -->
+            android:name=".DetailBookActivity"
+            android:exported="true"/> <!-- Khai báo BookListActivity -->
 
     </application>
 

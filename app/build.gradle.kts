@@ -21,6 +21,7 @@ android {
     }
 
     buildTypes {
+
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -37,6 +38,7 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
+        viewBinding = true
         compose = true
     }
     composeOptions {
@@ -98,6 +100,9 @@ dependencies {
 
     implementation("com.google.android.material:material:1.9.0")// Kiểm tra phiên bản mới nhất
     implementation ("androidx.appcompat:appcompat:1.3.1") // Thêm thư viện AppCompat nếu chưa có
+
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
     // Các thư viện khác của bạn...
 
     implementation(libs.androidx.core.ktx)

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_book_detail"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/hs_1" />
+
+    <TextView
+        android:id="@+id/tv_book_title_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:text="Tieu de sach "
+        android:textColor="@android:color/black"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/tv_book_author_detail_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="Tac gia chinh: "
+        android:textColor="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/tv_book_author_detail_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tac gia phu: "
+        android:textSize="18sp"
+        android:textColor="@android:color/darker_gray" />
+
+
+    <TextView
+        android:id="@+id/tv_book_year_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="Nam xuat ban"
+        android:textColor="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/tv_book_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="Mo ta sach"
+        android:textColor="@android:color/black" />
+
+</LinearLayout>

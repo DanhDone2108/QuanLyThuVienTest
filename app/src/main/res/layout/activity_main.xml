@@ -24,6 +24,12 @@
             android:layout_height="match_parent"
             android:layout_below="@id/toolbar" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_books"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rcv_user" />
+
         <!-- Floating Action Button -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_add_user"
@@ -43,5 +49,5 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:menu="@menu/drawer_menu" /> <!-- Đảm bảo drawer_menu.xml đã được tạo trong res/menu -->
+        app:menu="@menu/drawer_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>
